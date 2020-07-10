@@ -98,7 +98,8 @@ public class Movement extends PApplet {
 
     public void move() {
         if(moveForward) {
-            x += speed;
+            x += speed * cos(rotationAmount);
+            y += speed * sin(rotationAmount);
         }
     }
 
