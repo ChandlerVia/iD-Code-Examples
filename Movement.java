@@ -1,5 +1,3 @@
-//Finished Code
-
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -16,17 +14,17 @@ public class Movement extends PApplet {
     public float y = 350;
 
     public boolean moveForward = false;
-    public boolean moving = false;
 
+    public boolean moving = false;
     public boolean rotatingLeft = false;
     public boolean rotatingRight = false;
 
     public void settings() {
-        size(700, 800);
+        size (700, 800);
     }
 
     public void setup() {
-        background(255, 255, 255);
+        background(255,255,255);
     }
 
     public void draw() {
@@ -34,6 +32,7 @@ public class Movement extends PApplet {
 
         //Move and control the rocket ship.
         move();
+        changeRotation();
         translate(x, y);
         rotate(rotationAmount);
         drawRocketShip();
@@ -62,7 +61,7 @@ public class Movement extends PApplet {
         triangle(rocketX + 25, rocketY, rocketX - 15, rocketY - 25, rocketX, rocketY);
         triangle(rocketX + 25, rocketY + 50, rocketX - 15, rocketY + 75, rocketX, rocketY + 50);
 
-        if (moving) {
+        if(moving) {
             //Fire trail
             fill(255, 0, 0);
             noStroke();
@@ -70,29 +69,54 @@ public class Movement extends PApplet {
         }
     }
 
-    public void keyPressed() {
-        if (key == 'w') {
+    public void keyPressed()  {
+        if(key == 'w')
+        {
             moveForward = true;
             moving = true;
         }
-        if (key == 'a'){
+        if(key == 'a') {
             rotatingLeft = true;
         }
-        if (key == 'd'){
+        if(key == 'd') {
             rotatingRight = true;
         }
     }
 
     public void keyReleased() {
-        if (key == 'w') {
+        if(key == 'w') {
             moveForward = false;
             moving = false;
+        }
+        if(key == 'a') {
+            rotatingLeft = false;
+        }
+        if(key == 'd') {
+            rotatingRight = false;
         }
     }
 
     public void move() {
-        if (moveForward) {
+        if(moveForward) {
             x += speed;
         }
     }
+
+    public void changeRotation() {
+        if(rotatingLeft){
+            rotationAmount -= .08;
+            if(rotationAmount < 0){
+                rotationAmount = 2 * PI;
+            }
+        }
+
+        if(rotatingRight) {
+            rotationAmount += .08;
+            if(rotationAmount > 2 * PI) {
+                rotationAmount = 0;
+            }
+        }
+
+    }
+
 }
